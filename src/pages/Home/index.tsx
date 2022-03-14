@@ -1,10 +1,31 @@
 import React from 'react';
-import {Container, Text, Button} from './styles';
+import {Menu} from '../../components/Menu';
+
+import {
+  Container,
+  Text,
+  Button,
+  CardText,
+  TextCard,
+  Input,
+  Title,
+  Row,
+} from './styles';
 
 export function Home() {
   return (
     <Container>
-      <Text>Teste</Text>
+      <Row>
+        <Menu />
+        <CardText>
+          <Title>Descrição</Title>
+          <TextCard>
+            Para realizar o experimento e preciso verificar se a placa está
+            conectada na mesma rede que o device está conectado atualmente.
+          </TextCard>
+        </CardText>
+      </Row>
+
       <Button>
         <Text>TESTAR</Text>
       </Button>

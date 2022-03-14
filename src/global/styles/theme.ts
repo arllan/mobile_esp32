@@ -8,6 +8,7 @@ export default {
     attention: '#E83F5B',
     attention_light: 'rgba(232,63,91,0.5)',
     shape: '#FFFFFF',
+    backgroundSecundary: '#E5E5E5',
     title: '#363F5F',
     text: '#969CB2',
     background: '#F0F2F5',
@@ -17,6 +18,7 @@ export default {
     text_dark: '#000000',
     blue: '#E0FFFF',
     blue600: '#B0C4DE',
+    backgroundPrimary: '#9D9D9D',
     black: '#000',
   },
   cardColors: {
