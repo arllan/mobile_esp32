@@ -11,7 +11,6 @@ export function useRequest() {
       const request = await api.get(url, options);
       return request;
     } catch (error) {
-      console.log(error);
       setError(error);
     } finally {
       setStatus(false);
@@ -23,7 +22,6 @@ export function useRequest() {
       const request = await api.post(url, options);
       return request;
     } catch (error) {
-      console.log(error);
       setError(error);
     } finally {
       setStatus(false);
@@ -35,7 +33,6 @@ export function useRequest() {
       const request = await api.put(url, options);
       return request;
     } catch (error) {
-      console.log(error);
       setError(error);
     } finally {
       setStatus(false);
