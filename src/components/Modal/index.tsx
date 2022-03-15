@@ -24,7 +24,7 @@ export function ModalConnect({isVisible, exitModal, ...rest}: IPropsModal) {
             Adicione o IP da placa esp32 e certifique que o device e a placa
             estejam na mesma rede.
           </Text>
-          <Input placeholder=" Exemplo: 192.168.15.1" />
+          <Input placeholder=" Exemplo: 192.168.15.1" keyboardType="numeric" />
           <Row>
             <Button type="close" onPress={exitModal}>
               <TextButton>Fechar</TextButton>

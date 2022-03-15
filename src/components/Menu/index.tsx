@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Container, ButtonMenu} from './styles';
+import {Container, ButtonMenu, Row} from './styles';
 import {ModalConnect} from '../Modal';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -9,10 +9,10 @@ export function Menu() {
   function toggleModal() {
     setModalControl(!modalControl);
   }
+
   return (
-    <>
-      <ModalConnect isVisible={modalControl} exitModal={toggleModal} />
-      <Container>
+    <Container>
+      <Row>
         <ButtonMenu>
           <Icon
             name="chevron-back-sharp"
@@ -33,7 +33,8 @@ export function Menu() {
             style={{marginRight: 10}}
           />
         </ButtonMenu>
-      </Container>
-    </>
+      </Row>
+      <ModalConnect isVisible={modalControl} exitModal={toggleModal} />
+    </Container>
   );
 }
