@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Row} from './styles';
+import {Container} from './styles';
 import {Bar} from '../StatusBar';
 import {RowMenu} from '../RowMenu';
 
