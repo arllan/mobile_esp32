@@ -1,49 +1,20 @@
 import React from 'react';
 import {FlatList} from 'react-native';
-import {Container, Card, Text} from './styles';
+import {Container, Card, Text, ContainerButton} from './styles';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-export function List() {
-  const data = [
-    {
-      id: 1,
-      text: 'Controle de portas digitais com passagem de parâmetros',
-      type: '',
-    },
-    {
-      id: 2,
-      text: 'Captando dados de portas digitais e análogicas via http',
-      type: '',
-    },
-    {
-      id: 3,
-      text: 'Controlando atuadores via http com controle de passos',
-      type: '',
-    },
-    {
-      id: 4,
-      text: 'Acionando relés com controle de tempo',
-      type: '',
-    },
-    {
-      id: 5,
-      text: 'Integração de gráficos com sinais análogicos e digitais ',
-      type: '',
-    },
-    {
-      id: 6,
-      text: 'Integração de dados com firebase e datalog',
-      type: '',
-    },
-  ];
+export function List({data}: any) {
   return (
     <Container>
       <FlatList
+        style={{width: '100%'}}
         data={data}
         keyExtractor={item => String(item.id)}
         renderItem={({item}) => (
-          <Card>
+          <ContainerButton color={item.type}>
+            <Icon name="add" size={30} color="#FFF" />
             <Text>{item.text}</Text>
-          </Card>
+          </ContainerButton>
         )}
       />
     </Container>
