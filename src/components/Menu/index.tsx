@@ -5,12 +5,13 @@ import {RowMenu} from '../RowMenu';
 
 interface IPropsMenu {
   navigationRow: 'home' | 'exemple' | 'intro';
+  labelmenu?: string;
 }
 
-export function Menu({navigationRow}: IPropsMenu) {
+export function Menu({navigationRow, labelmenu}: IPropsMenu) {
   return (
     <Container>
-      <RowMenu navigationRow={navigationRow} />
+      <RowMenu navigationRow={navigationRow} labelmenu={labelmenu} />
       <Bar />
     </Container>
   );
