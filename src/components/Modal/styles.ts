@@ -18,7 +18,7 @@ export const BodyModal = styled.View`
   background-color: ${({theme}) => theme.colors.background};
   width: 100%;
   min-height: ${normalizePx(50)};
-  padding: 22px 22px;
+  padding: 29px 24px;
   border-radius: ${normalizePx(10)};
 `;
 
@@ -79,9 +79,9 @@ export const SubTitle = styled.Text`
 
 export const TitleInput = styled.Text`
   color: ${({theme}) => theme.colors.primary};
-  font-size: ${normalizePx(16)};
+  font-size: ${normalizePx(14)};
   margin-top: ${normalizePx(15)};
-  font-weight: bold;
+  font-weight: 500;
 `;
 
 export const AreaButton = styled.TouchableOpacity.attrs({
