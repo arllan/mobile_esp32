@@ -7,9 +7,13 @@ import {
   TextButton,
   Input,
   Row,
-  Text,
+  SubTitle,
+  Title,
+  TitleInput,
+  AreaButton,
+  TextButtonReturn,
+  Icons,
 } from './styles';
-
 interface IPropsModal {
   isVisible: boolean;
   exitModal: () => void;
@@ -20,17 +24,19 @@ export function ModalConnect({isVisible, exitModal, ...rest}: IPropsModal) {
     <Container>
       <ModalConatiner {...rest} isVisible={isVisible}>
         <BodyModal>
-          <Text>
-            Adicione o IP da placa esp32 e certifique que o device e a placa
-            estejam na mesma rede.
-          </Text>
+          <Title>Adicionar IP do ESP32</Title>
+          <SubTitle>
+            Informe o ip da placa esp32 para o app enviar as requisiçoes.
+          </SubTitle>
+          <TitleInput>IP DA PLACA</TitleInput>
           <Input placeholder=" Exemplo: 192.168.15.1" keyboardType="numeric" />
           <Row>
-            <Button type="close" onPress={exitModal}>
-              <TextButton>Fechar</TextButton>
-            </Button>
-            <Button type="connect" onPress={exitModal}>
-              <TextButton>Conectar</TextButton>
+            <AreaButton onPress={exitModal}>
+              <Icons />
+              <TextButtonReturn>Fechar</TextButtonReturn>
+            </AreaButton>
+            <Button onPress={exitModal}>
+              <TextButton>Salvar</TextButton>
             </Button>
           </Row>
         </BodyModal>
