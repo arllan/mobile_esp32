@@ -36,6 +36,14 @@ export default {
     card_component: '#87CEFA',
     card_attention: '#E83F5B',
   },
+  colorList: {
+    blue: '#87CEFA',
+    yellow: '#F5DF98',
+    orange: '#FF948B',
+    green: '#7ECECA',
+    brown: '#C7B299',
+    purple: '#BFCFF7',
+  },
   fontsDimension: {
     large: 22,
     medium: 21,

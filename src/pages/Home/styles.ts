@@ -5,6 +5,6 @@ export const Container = styled.View`
   flex: 1;
   background-color: ${({theme}) => theme.colors.background};
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 `;
