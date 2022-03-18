@@ -16,7 +16,7 @@ export function Exemple() {
   return (
     <Container>
       <Row>
-        <Menu />
+        <Menu navigationRow="exemple" />
         <CardText>
           <Title>Descrição</Title>
           <TextCard>

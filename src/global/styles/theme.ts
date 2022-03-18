@@ -19,6 +19,7 @@ export default {
     blue: '#E0FFFF',
     blue600: '#B0C4DE',
     backgroundPrimary: '#9D9D9D',
+    backgroundThird: '#F8F8F8',
     black: '#000',
     orange: '#FA8072',
   },
