@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
 import {normalizePx} from '../../global/styles/mixins';
+import Icon from 'react-native-vector-icons/Ionicons';
+import theme from '../../global/styles/theme';
 
 interface PropsColorsCard {
   color: 'blue' | 'yellow' | 'orange' | 'green' | 'brown' | 'purple';
@@ -48,3 +50,9 @@ export const ContainerButton = styled.TouchableOpacity.attrs({
   border-radius: ${normalizePx(20)};
   margin-top: ${normalizePx(20)};
 `;
+
+export const Icons = styled(Icon).attrs({
+  name: 'add',
+  size: 30,
+  color: theme.colors.background,
+})``;

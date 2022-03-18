@@ -74,7 +74,7 @@ export const SubTitle = styled.Text`
   color: ${({theme}) => theme.colors.backgroundPrimary};
   font-size: ${normalizePx(14)};
   font-weight: normal;
-  margin-top: ${normalizePx(15)};
+  margin-top: ${normalizePx(3)};
 `;
 
 export const TitleInput = styled.Text`

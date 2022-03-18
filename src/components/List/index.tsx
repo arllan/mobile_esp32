@@ -1,7 +1,6 @@
 import React from 'react';
 import {FlatList} from 'react-native';
-import {Container, Card, Text, ContainerButton} from './styles';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {Container, Text, ContainerButton, Icons} from './styles';
 
 export function List({data}: any) {
   return (
@@ -11,8 +10,8 @@ export function List({data}: any) {
         data={data}
         keyExtractor={item => String(item.id)}
         renderItem={({item}) => (
-          <ContainerButton color={item.type}>
-            <Icon name="add" size={30} color="#FFF" />
+          <ContainerButton color={item.type} onPress={() => {}}>
+            <Icons />
             <Text>{item.text}</Text>
           </ContainerButton>
         )}
