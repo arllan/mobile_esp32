@@ -20,6 +20,7 @@ export default {
     blue600: '#B0C4DE',
     backgroundPrimary: '#9D9D9D',
     black: '#000',
+    orange: '#FA8072',
   },
   cardColors: {
     card_svg: '#FFD700',
@@ -32,6 +33,7 @@ export default {
     card_filter: '#FA8072',
     card_hook: '#A020F0',
     card_component: '#87CEFA',
+    card_attention: '#E83F5B',
   },
   fontsDimension: {
     large: 22,

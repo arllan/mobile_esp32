@@ -1,40 +1,17 @@
-import React, {useState} from 'react';
-import {Container, ButtonMenu, Row} from './styles';
-import {ModalConnect} from '../Modal';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React from 'react';
+import {Container, Row} from './styles';
+import {Bar} from '../StatusBar';
+import {RowMenu} from '../RowMenu';
 
-export function Menu() {
-  const [modalControl, setModalControl] = useState(false);
+interface IPropsMenu {
+  navigationRow: 'home' | 'exemple' | 'intro';
+}
 
-  function toggleModal() {
-    setModalControl(!modalControl);
-  }
-
+export function Menu({navigationRow}: IPropsMenu) {
   return (
     <Container>
-      <Row>
-        <ButtonMenu>
-          <Icon
-            name="chevron-back-sharp"
-            size={30}
-            color="#000"
-            style={{marginRight: 10}}
-          />
-        </ButtonMenu>
-
-        <ButtonMenu
-          onPress={() => {
-            setModalControl(!modalControl);
-          }}>
-          <Icon
-            name="flower"
-            size={30}
-            color="#000"
-            style={{marginRight: 10}}
-          />
-        </ButtonMenu>
-      </Row>
-      <ModalConnect isVisible={modalControl} exitModal={toggleModal} />
+      <RowMenu navigationRow={navigationRow} />
+      <Bar />
     </Container>
   );
 }

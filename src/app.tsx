@@ -8,7 +8,7 @@ import {Exemple} from './pages/Exemple';
 export function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Exemple />
+      <Home />
     </ThemeProvider>
   );
 }
