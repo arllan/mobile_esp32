@@ -9,31 +9,36 @@ import {
   TextOff,
   TextOn,
   Button,
+  ContainerText,
 } from './styles';
 
 interface ICardControlProps {
   pin: string;
   value: boolean;
   onValueChange: (val: boolean) => void;
+  onPressButton?: () => void;
 }
 
 export function CardControl({
   pin,
   value,
   onValueChange,
+  onPressButton,
   ...rest
 }: ICardControlProps) {
   return (
     <Line>
       <Row>
-        <Button>
+        <Button onPress={onPressButton}>
           <Icons />
         </Button>
         <TextToogle>PORTA DIGITAL {pin}</TextToogle>
       </Row>
       <LineVertical />
       <Row>
-        {value ? <TextOn>LIGADO</TextOn> : <TextOff>DESLIGADO</TextOff>}
+        <ContainerText>
+          {value ? <TextOn>LIGADO</TextOn> : <TextOff>DESLIGADO</TextOff>}
+        </ContainerText>
         <Switch
           {...rest}
           value={value}

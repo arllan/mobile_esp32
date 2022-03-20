@@ -17,3 +17,7 @@ export const Content = styled.View`
   justify-content: flex-start;
   align-items: center;
 `;
+
+export const ContentScroll = styled.ScrollView`
+  width: 100%;
+`;
