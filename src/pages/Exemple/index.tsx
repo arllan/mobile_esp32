@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {Switch} from 'react-native';
 import {Menu} from '../../components/Menu';
 
 import {
@@ -10,9 +11,12 @@ import {
   Input,
   Title,
   Row,
+  Line,
+  TextToogle,
 } from './styles';
 
 export function Exemple() {
+  const [toggleSwitch, setToggleSwitch] = useState(false);
   return (
     <Container>
       <Row>
@@ -26,7 +30,17 @@ export function Exemple() {
         </CardText>
       </Row>
 
-      <Row></Row>
+      <Line>
+        <TextToogle>PORTA DIGITAL 01</TextToogle>
+        <Switch
+          trackColor={{false: '#767577', true: '#81b0ff'}}
+          thumbColor={toggleSwitch ? '#1E90FF' : '#f4f3f4'}
+          value={toggleSwitch}
+          onValueChange={val => {
+            setToggleSwitch(val);
+          }}
+        />
+      </Line>
 
       <Button>
         <Text>TESTAR</Text>

@@ -1,9 +1,11 @@
 import styled from 'styled-components/native';
 import {normalizePx} from '../../global/styles/mixins';
+import Icon from 'react-native-vector-icons/Ionicons';
+import theme from '../../global/styles/theme';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: ${({theme}) => theme.colors.shape};
+  background-color: ${({theme}) => theme.colors.background};
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -13,6 +15,12 @@ export const Text = styled.Text`
   color: ${({theme}) => theme.colors.shape};
   font-size: ${normalizePx(18)};
   font-weight: bold;
+`;
+
+export const TextToogle = styled.Text`
+  color: ${({theme}) => theme.colors.black};
+  font-size: ${normalizePx(16)};
+  font-weight: 500;
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -60,6 +68,14 @@ export const Row = styled.View`
   flex-direction: column;
 `;
 
+export const Line = styled.View`
+  width: 100%;
+  height: ${normalizePx(50)};
+  background-color: ${({theme}) => theme.colors.shape};
+  align-items: center;
+  flex-direction: row;
+`;
+
 export const Input = styled.TextInput`
   width: 90%;
   height: ${normalizePx(50)};
@@ -90,3 +106,9 @@ export const TextArea = styled.TextInput`
   border-radius: ${normalizePx(10)};
   border-color: ${({theme}) => theme.colors.attention};
 `;
+
+export const Icons = styled(Icon).attrs({
+  name: 'add',
+  size: 30,
+  color: theme.colors.background,
+})``;
