@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import {normalizePx} from '../../global/styles/mixins';
 import Icon from 'react-native-vector-icons/Ionicons';
 import theme from '../../global/styles/theme';
+import {TouchableOpacityProps} from 'react-native';
 
 export const TextToogle = styled.Text`
   color: ${({theme}) => theme.colors.black};
@@ -74,9 +75,7 @@ export const Icons = styled(Icon).attrs({
   color: theme.colors.black,
 })``;
 
-export const Button = styled.TouchableOpacity.attrs({
-  activeOpacity: 0.7,
-})``;
+export const Button = styled.TouchableOpacity<TouchableOpacityProps>``;
 
 export const ContainerText = styled.View`
   width: ${normalizePx(80)};

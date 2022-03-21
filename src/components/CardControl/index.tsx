@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch} from 'react-native';
+import {Switch, TouchableOpacityProps} from 'react-native';
 import {
   Row,
   Line,
@@ -12,24 +12,23 @@ import {
   ContainerText,
 } from './styles';
 
-interface ICardControlProps {
+interface ICardControlProps extends TouchableOpacityProps {
   pin: string;
   value: boolean;
+  onPress: () => void;
   onValueChange: (val: boolean) => void;
-  onPressButton?: () => void;
 }
 
 export function CardControl({
   pin,
   value,
   onValueChange,
-  onPressButton,
-  ...rest
+  onPress,
 }: ICardControlProps) {
   return (
     <Line>
       <Row>
-        <Button onPress={onPressButton}>
+        <Button onPress={onPress}>
           <Icons />
         </Button>
         <TextToogle>PORTA DIGITAL {pin}</TextToogle>
@@ -40,7 +39,6 @@ export function CardControl({
           {value ? <TextOn>LIGADO</TextOn> : <TextOff>DESLIGADO</TextOff>}
         </ContainerText>
         <Switch
-          {...rest}
           value={value}
           trackColor={{false: '#767577', true: '#81b0ff'}}
           thumbColor={value ? '#1E90FF' : '#f4f3f4'}
