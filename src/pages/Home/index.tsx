@@ -1,7 +1,7 @@
 import React from 'react';
 import {Menu} from '../../components/Menu';
 import {Container} from './styles';
-import {Input} from '../../components/Input';
+import {Input} from '../../components/Input/Input';
 import {List} from '../../components/List';
 import {dataListObj} from '../../service/data/dataList';
 

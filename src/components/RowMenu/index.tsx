@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Platform} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {ModalConnect} from '../../components/Modal';
+import {ModalConnect} from '../Modal/ModalConnect';
 import {
   Row,
   Text,
