@@ -23,6 +23,7 @@ export default {
     backgroundThird: '#F8F8F8',
     black: '#000',
     orange: '#FA8072',
+    backgroundYellow: '#F8A435',
   },
   cardColors: {
     card_svg: '#FFD700',
