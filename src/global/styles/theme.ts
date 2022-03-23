@@ -40,7 +40,7 @@ export default {
   },
   colorList: {
     blue: '#87CEFA',
-    yellow: '#F5DF98',
+    yellow: '#FACA66',
     orange: '#FF948B',
     green: '#7ECECA',
     brown: '#C7B299',
