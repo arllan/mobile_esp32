@@ -1,9 +1,10 @@
 import React from 'react';
 import {useSlider} from '../../hook/useSlider';
 import SwiperFlatList from 'react-native-swiper-flatlist';
-import {RFValue, RFPercentage} from 'react-native-responsive-fontsize';
 import {Card} from '../Card';
 import {Content, ButtonNext, Text, ButtonDone} from './styles';
+import {PlatformNumber} from '../../helpers/PlatformPixel';
+import theme from '../../global/styles/theme';
 
 export function Slider() {
   const {
@@ -20,8 +21,9 @@ export function Slider() {
       <SwiperFlatList
         index={0}
         disableGesture={false}
+        style={{backgroundColor: theme.colors.orange}}
         showPagination={true}
-        paginationStyle={{marginBottom: RFPercentage(30)}}
+        paginationStyle={{marginBottom: PlatformNumber(42, 30)}}
         paginationDefaultColor="#C4C4C4"
         ref={scrollRef}
         data={dataSlider}

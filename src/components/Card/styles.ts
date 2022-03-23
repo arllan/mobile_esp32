@@ -23,6 +23,7 @@ export const SubTitle = styled.Text`
   font-size: ${normalizePx(15)};
   text-align: center;
   font-weight: 500;
+  margin: ${normalizePx(10)};
 `;
 
 export const Row = styled.View`
