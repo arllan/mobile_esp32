@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSlider} from '../../hook/useSlider';
 import SwiperFlatList from 'react-native-swiper-flatlist';
-import {RFValue} from 'react-native-responsive-fontsize';
+import {RFValue, RFPercentage} from 'react-native-responsive-fontsize';
 import {Card} from '../Card';
 import {Content, ButtonNext, Text, ButtonDone} from './styles';
 
@@ -11,11 +11,8 @@ export function Slider() {
     getCurrentIndex,
     nextPosition,
     scrollRef,
-    setShowRealApp,
-    showRealApp,
     index,
     setIntro,
-    intro,
   } = useSlider();
 
   return (
@@ -24,7 +21,7 @@ export function Slider() {
         index={0}
         disableGesture={false}
         showPagination={true}
-        paginationStyle={{marginBottom: RFValue(270)}}
+        paginationStyle={{marginBottom: RFPercentage(30)}}
         paginationDefaultColor="#C4C4C4"
         ref={scrollRef}
         data={dataSlider}
