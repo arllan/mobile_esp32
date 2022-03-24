@@ -1,4 +1,5 @@
 import React from 'react';
+import {useAsyncStorage} from '../../../hook/useAsyncStorage';
 import {
   ModalConatiner,
   Container,
@@ -20,6 +21,8 @@ interface IPropsModal {
 }
 
 export function ModalConnect({isVisible, exitModal, ...rest}: IPropsModal) {
+  const {setDataStorage, ipConnect, setIpConnect} = useAsyncStorage();
+
   return (
     <Container>
       <ModalConatiner {...rest} isVisible={isVisible}>
@@ -29,13 +32,23 @@ export function ModalConnect({isVisible, exitModal, ...rest}: IPropsModal) {
             Informe o ip da placa esp32 para o app enviar as requisiçoes.
           </SubTitle>
           <TitleInput>IP DA PLACA</TitleInput>
-          <Input placeholder=" Exemplo: 192.168.15.1" keyboardType="numeric" />
+          <Input
+            placeholder=" Exemplo: 192.168.15.1"
+            keyboardType="numeric"
+            value={ipConnect}
+            onChangeText={val => {
+              setIpConnect(val);
+            }}
+          />
           <Row>
             <AreaButton onPress={exitModal}>
               <Icons />
               <TextButtonReturn>Fechar</TextButtonReturn>
             </AreaButton>
-            <Button onPress={exitModal}>
+            <Button
+              onPress={() => {
+                setDataStorage('IP', ipConnect), exitModal();
+              }}>
               <TextButton>Salvar</TextButton>
             </Button>
           </Row>
