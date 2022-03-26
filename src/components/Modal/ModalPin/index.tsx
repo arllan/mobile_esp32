@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {InputCode} from '../../Input/InputCode';
 import {
   ModalConatiner,
@@ -22,6 +22,8 @@ interface IPropsModal {
 }
 
 export function ModalPin({isVisible, exitModal, ...rest}: IPropsModal) {
+  const [inputOn, setInputOn] = useState('');
+  const [inputOff, setInputOff] = useState('');
   return (
     <Container>
       <ModalConatiner {...rest} isVisible={isVisible}>
@@ -32,8 +34,16 @@ export function ModalPin({isVisible, exitModal, ...rest}: IPropsModal) {
             esp32. Geralmente combinações de até 5 letras.
           </SubTitle>
           <TitleInput>COMANDO A SER ENVIADO</TitleInput>
-          <InputCode type="attention" placeholder="Código" />
-          <InputCode type="success" placeholder="Código" />
+          <InputCode
+            type="attention"
+            placeholder="Código"
+            onChangeText={val => setInputOn(val)}
+          />
+          <InputCode
+            type="success"
+            placeholder="Código"
+            onChangeText={val => setInputOff(val)}
+          />
           <Row>
             <AreaButton onPress={exitModal}>
               <Icons />
