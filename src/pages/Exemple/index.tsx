@@ -1,10 +1,14 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Menu} from '../../components/Menu';
 import {CardControl} from '../../components/CardControl';
 import {ModalPin} from '../../components/Modal/ModalPin';
-import {Container, Content, ContentScroll} from './styles';
+import {Container, Content, ButtonAdd, TextButton} from './styles';
 import {listInputs} from '../../service/data/inputsList';
 import {randomNumber} from '../../helpers/RandomNumber';
+import {useAsyncData} from '../../hook/useAsyncData';
+import {FlatList} from 'react-native';
+import {randomToString} from '../../helpers/RandomNumber';
+import {ModalAdd} from '../../components/Modal/ModalAdd';
 
 interface InputsCard {
   porta: string;
@@ -17,6 +21,9 @@ export function Exemple() {
   const [isPinModel, setIsPinModel] = useState(false);
   const [pinControl, setPinControl] = useState<number>(0);
   const [listInput, setListInput] = useState<InputsCard[]>(listInputs);
+  const [controlModalAdd, setControlModalAdd] = useState(false);
+
+  const {} = useAsyncData();
 
   function handleOpen(pin: number) {
     setPinControl(pin);
@@ -25,6 +32,10 @@ export function Exemple() {
 
   function handleClose() {
     setIsPinModel(false);
+  }
+
+  function handleCloseModalAdd() {
+    setControlModalAdd(false);
   }
 
   function addObj() {
@@ -55,12 +66,24 @@ export function Exemple() {
     }
   }
 
+  function editDataPin(index: number, desligado: string, ligado: string) {
+    if (listInput[index] !== undefined) {
+      const newInput = [...listInput];
+      newInput[index].desligado = desligado
+        ? desligado
+        : newInput[index].desligado;
+      newInput[index].ligado = ligado ? ligado : newInput[index].ligado;
+      setListInput(newInput);
+    }
+  }
+
   function refValue(index: number) {
     const newInput = [...listInput];
     return newInput[index].statePin;
   }
 
   useEffect(() => {
+    console.log('---------------Atualizado');
     console.log(listInput);
     console.log(listInput.length);
   }, [listInput]);
@@ -68,47 +91,43 @@ export function Exemple() {
   return (
     <Container>
       <Menu navigationRow="exemple" labelmenu="CONTROLE DE PORTAS" />
-      <ContentScroll>
-        <Content>
-          <CardControl
-            pin="0"
-            onPress={() => handleOpen(0)}
-            value={refValue(0)}
-            onValueChange={val => {
-              editObj(0, val);
-            }}
-          />
-          <CardControl
-            pin="01"
-            onPress={() => handleOpen(1)}
-            value={refValue(1)}
-            onValueChange={val => {
-              editObj(1, val);
-            }}
-          />
-          <CardControl
-            pin="02"
-            onPress={() => handleOpen(1)}
-            value={refValue(2)}
-            onValueChange={val => {
-              editObj(2, val);
-            }}
-          />
-          <CardControl
-            pin="03"
-            onPress={() => handleOpen(1)}
-            value={refValue(3)}
-            onValueChange={val => {
-              editObj(3, val);
-            }}
-          />
-        </Content>
-      </ContentScroll>
+      <Content>
+        <FlatList
+          contentContainerStyle={{
+            alignItems: 'center',
+          }}
+          data={listInput}
+          keyExtractor={() => randomToString(0, 1000)}
+          renderItem={({item, index}) => (
+            <CardControl
+              pin={String(index)}
+              onPress={() => handleOpen(index)}
+              value={refValue(index)}
+              onValueChange={val => {
+                editObj(index, val);
+              }}
+            />
+          )}
+        />
+      </Content>
+
       <ModalPin
+        funEdit={(pin, desligado, ligado) => {
+          editDataPin(pin, desligado, ligado);
+        }}
         isVisible={isPinModel}
         exitModal={handleClose}
         pin={pinControl}
+        valueOriginal={listInput}
       />
+      <ModalAdd
+        isVisible={controlModalAdd}
+        exitModal={handleCloseModalAdd}
+        pin={pinControl}
+      />
+      <ButtonAdd onPress={() => setControlModalAdd(true)}>
+        <TextButton>ADICIONAR</TextButton>
+      </ButtonAdd>
     </Container>
   );
 }

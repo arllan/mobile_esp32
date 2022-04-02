@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import {normalizePx} from '../../../global/styles/mixins';
 
 interface Text {
-  type: 'attention' | 'success';
+  type: 'attention' | 'success' | 'normal';
 }
 
 export const Container = styled.View`
@@ -49,5 +49,9 @@ export const Text = styled.Text<Text>`
   font-size: ${normalizePx(14)};
   font-weight: 600;
   color: ${({theme, type}) =>
-    type === 'attention' ? theme.colors.attention : theme.colors.success};
+    type === 'attention'
+      ? theme.colors.attention
+      : type === 'success'
+      ? theme.colors.success
+      : theme.colors.text};
 `;

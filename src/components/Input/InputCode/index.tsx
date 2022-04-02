@@ -3,19 +3,16 @@ import {TextInputProps} from 'react-native';
 import {Container, InputElement, CardInput, Text, Row} from './styles';
 
 interface IPropsInputCode extends TextInputProps {
-  type: 'attention' | 'success';
+  type: 'attention' | 'success' | 'normal';
+  text: string;
 }
 
-export function InputCode({type, ...rest}: IPropsInputCode) {
+export function InputCode({type, text, ...rest}: IPropsInputCode) {
   return (
     <Container>
       <Row>
         <CardInput>
-          {type === 'attention' ? (
-            <Text type={type}>DESLIGADO</Text>
-          ) : (
-            <Text type={type}>LIGADO</Text>
-          )}
+          <Text type={type}>{text}</Text>
         </CardInput>
         <InputElement {...rest} />
       </Row>

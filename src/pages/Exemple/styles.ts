@@ -7,7 +7,7 @@ export const Container = styled.View`
   flex: 1;
   background-color: ${({theme}) => theme.colors.background};
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -20,4 +20,20 @@ export const Content = styled.View`
 
 export const ContentScroll = styled.ScrollView`
   width: 100%;
+`;
+
+export const ButtonAdd = styled.TouchableOpacity`
+  width: 90%;
+  height: ${normalizePx(45)};
+  justify-content: center;
+  align-items: center;
+  background-color: ${({theme}) => theme.colors.orange};
+  border-radius: ${normalizePx(10)};
+  margin-bottom: ${normalizePx(22)};
+`;
+
+export const TextButton = styled.Text`
+  color: ${({theme}) => theme.colors.shape};
+  font-weight: bold;
+  font-size: ${normalizePx(15)};
 `;

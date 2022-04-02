@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {InputCode} from '../../Input/InputCode';
 import {
   ModalConatiner,
@@ -15,15 +15,42 @@ import {
   Icons,
 } from './styles';
 
+interface InputsCard {
+  porta: string;
+  ligado: string;
+  desligado: string;
+  statePin: boolean;
+}
+
 interface IPropsModal {
   isVisible: boolean;
   pin: number;
+  valueOriginal: any;
   exitModal: () => void;
+  funEdit: (index: number, desligado: string, ligado: string) => void;
 }
 
-export function ModalPin({isVisible, exitModal, ...rest}: IPropsModal) {
+export function ModalPin({
+  isVisible,
+  exitModal,
+  pin,
+  funEdit,
+  valueOriginal,
+  ...rest
+}: IPropsModal) {
   const [inputOn, setInputOn] = useState('');
   const [inputOff, setInputOff] = useState('');
+
+  function saveValue() {
+    funEdit(pin, inputOff, inputOn);
+    exitModal();
+  }
+
+  useEffect(() => {
+    setInputOn(valueOriginal[pin].ligado);
+    setInputOff(valueOriginal[pin].desligado);
+  }, [pin]);
+
   return (
     <Container>
       <ModalConatiner {...rest} isVisible={isVisible}>
@@ -33,23 +60,25 @@ export function ModalPin({isVisible, exitModal, ...rest}: IPropsModal) {
             E preciso selecionar o elemento de texto que vai ser enviado ao
             esp32. Geralmente combinações de até 5 letras.
           </SubTitle>
-          <TitleInput>COMANDO A SER ENVIADO</TitleInput>
+          <TitleInput>COMANDO A SER ENVIADO {pin}</TitleInput>
           <InputCode
+            value={inputOff}
             type="attention"
             placeholder="Código"
-            onChangeText={val => setInputOn(val)}
+            onChangeText={val => setInputOff(val)}
           />
           <InputCode
+            value={inputOn}
             type="success"
             placeholder="Código"
-            onChangeText={val => setInputOff(val)}
+            onChangeText={val => setInputOn(val)}
           />
           <Row>
             <AreaButton onPress={exitModal}>
               <Icons />
               <TextButtonReturn>Fechar</TextButtonReturn>
             </AreaButton>
-            <Button onPress={exitModal}>
+            <Button onPress={saveValue}>
               <TextButton>Salvar</TextButton>
             </Button>
           </Row>
