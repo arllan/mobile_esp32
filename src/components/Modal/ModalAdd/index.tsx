@@ -10,40 +10,35 @@ import {
   Row,
   SubTitle,
   Title,
-  TitleInput,
   AreaButton,
   TextButtonReturn,
   Icons,
 } from './styles';
-
-interface InputsCard {
-  porta: string;
-  ligado: string;
-  desligado: string;
-  statePin: boolean;
-}
-
 interface IPropsModal {
   isVisible: boolean;
   pin: number;
-  valueOriginal?: any;
   exitModal: () => void;
-  funEdit?: (index: number, desligado: string, ligado: string) => void;
+  funSave: (
+    index: number,
+    desligado: string,
+    ligado: string,
+    pinNum: any,
+  ) => void;
 }
 
 export function ModalAdd({
   isVisible,
   exitModal,
   pin,
-  funEdit,
-  valueOriginal,
+  funSave,
   ...rest
 }: IPropsModal) {
   const [inputOn, setInputOn] = useState('');
   const [inputOff, setInputOff] = useState('');
+  const [pinNumber, setPinNumber] = useState('');
 
   function saveValue() {
-    // funEdit(pin, inputOff, inputOn);
+    funSave(pin, inputOff, inputOn, pinNumber);
     exitModal();
   }
 
@@ -60,7 +55,7 @@ export function ModalAdd({
             type="normal"
             text="PINO"
             placeholder="Pino"
-            onChangeText={val => setInputOn(val)}
+            onChangeText={val => setPinNumber(val)}
           />
           <InputCode
             type="attention"
