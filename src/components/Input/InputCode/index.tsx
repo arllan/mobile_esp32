@@ -4,7 +4,7 @@ import {Container, InputElement, CardInput, Text, Row} from './styles';
 
 interface IPropsInputCode extends TextInputProps {
   type: 'attention' | 'success' | 'normal';
-  text: string;
+  text?: string;
 }
 
 export function InputCode({type, text, ...rest}: IPropsInputCode) {
