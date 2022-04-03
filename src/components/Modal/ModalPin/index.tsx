@@ -47,8 +47,8 @@ export function ModalPin({
   }
 
   useEffect(() => {
-    setInputOn(valueOriginal[pin].ligado);
-    setInputOff(valueOriginal[pin].desligado);
+    setInputOn(valueOriginal[pin]?.ligado);
+    setInputOff(valueOriginal[pin]?.desligado);
   }, [pin]);
 
   return (
