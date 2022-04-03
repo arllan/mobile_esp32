@@ -12,6 +12,7 @@ export function useAsyncData() {
   async function setDataStorage(key: string, value: any) {
     try {
       await AsyncStorage.setItem(key, JSON.stringify(value));
+      console.log('Deu certo, sALVO');
     } catch (error) {
       console.log('Erro setDataStorage: ', error);
     }
@@ -32,6 +33,7 @@ export function useAsyncData() {
   async function getDataStorage(key: string) {
     try {
       const searchData = await AsyncStorage.getItem(key);
+      // console.log('Retorno', searchData);
       return JSON.parse(searchData!);
     } catch (error) {
       console.log('Erro getDataStorage: ', error);
