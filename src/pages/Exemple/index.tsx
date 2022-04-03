@@ -20,10 +20,10 @@ interface InputsCard {
 export function Exemple() {
   const [isPinModel, setIsPinModel] = useState(false);
   const [pinControl, setPinControl] = useState<number>(0);
-  const [listInput, setListInput] = useState<InputsCard[]>(listInputs);
+  const [listInput, setListInput] = useState<InputsCard[]>([]);
   const [controlModalAdd, setControlModalAdd] = useState(false);
 
-  const {} = useAsyncData();
+  const {setDataStorage, getDataStorage} = useAsyncData();
 
   function handleOpen(pin: number) {
     setPinControl(pin);
@@ -38,12 +38,12 @@ export function Exemple() {
     setControlModalAdd(false);
   }
 
-  function addObj() {
+  function addObj(inputOff: any, inputOn: string, pinNumber: any) {
     const newInput = [];
     newInput.push({
-      porta: randomNumber(),
-      ligado: 'teste',
-      desligado: 'teste',
+      porta: pinNumber ? pinNumber : '#',
+      ligado: inputOn ? inputOn : '#',
+      desligado: inputOff ? inputOff : '#',
       statePin: false,
     });
     setListInput([...listInput, ...newInput]);
@@ -83,10 +83,42 @@ export function Exemple() {
   }
 
   useEffect(() => {
-    console.log('---------------Atualizado');
+    console.log('Inicio---------------Atualizado');
     console.log(listInput);
-    console.log(listInput.length);
+    console.log('Numero:', listInput?.length);
+
+    async function fun() {
+      if (listInput.length !== 0 && listInput.length !== undefined) {
+        console.log('bubu');
+        await setDataStorage('data', listInput);
+      }
+    }
+    fun();
+
+    async function fun2() {
+      const values: any = await getDataStorage('data');
+      console.log('values: ', values);
+    }
+
+    fun2();
+    console.log('Fim---------------Atualizado');
   }, [listInput]);
+
+  useEffect(() => {
+    async function initialVelues() {
+      const values: any = await getDataStorage('data');
+      if (values?.length !== 0 && values?.length !== undefined) {
+        console.log('aqui', values);
+        setListInput(values);
+      } else {
+        await setDataStorage('data', listInputs);
+        const values: any = await getDataStorage('data');
+        setListInput(values);
+      }
+    }
+
+    initialVelues();
+  }, []);
 
   return (
     <Container>
@@ -100,7 +132,7 @@ export function Exemple() {
           keyExtractor={() => randomToString(0, 1000)}
           renderItem={({item, index}) => (
             <CardControl
-              pin={String(index)}
+              pin={item?.porta}
               onPress={() => handleOpen(index)}
               value={refValue(index)}
               onValueChange={val => {
@@ -121,6 +153,10 @@ export function Exemple() {
         valueOriginal={listInput}
       />
       <ModalAdd
+        funSave={(inputOff, inputOn, pinNumber) => {
+          console.log(inputOff, inputOn, pinNumber);
+          addObj(inputOff, inputOn, pinNumber);
+        }}
         isVisible={controlModalAdd}
         exitModal={handleCloseModalAdd}
         pin={pinControl}
