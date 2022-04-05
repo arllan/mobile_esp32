@@ -180,7 +180,7 @@ export function Exemple() {
         pin={pinControl}
       />
       <ButtonAdd onPress={() => setControlModalAdd(true)}>
-        <TextButton>ADICIONAR</TextButton>
+        <TextButton>ADICIONAR.</TextButton>
       </ButtonAdd>
     </Container>
   );
