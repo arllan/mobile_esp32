@@ -38,7 +38,15 @@ export function Exemple() {
     setControlModalAdd(false);
   }
 
-  function addObj(inputOff: any, inputOn: string, pinNumber: any) {
+  function addObj(pinNumber: string, inputOff: any, inputOn: string) {
+    console.log(
+      ' | inputOff: ',
+      inputOff,
+      ' | inputOn: ',
+      inputOn,
+      ' | pinNumber:',
+      pinNumber,
+    );
     const newInput = [];
     newInput.push({
       porta: pinNumber ? pinNumber : '#',
@@ -153,9 +161,19 @@ export function Exemple() {
         valueOriginal={listInput}
       />
       <ModalAdd
-        funSave={(inputOff, inputOn, pinNumber) => {
-          console.log(inputOff, inputOn, pinNumber);
-          addObj(inputOff, inputOn, pinNumber);
+        funSave={(pin, inputOff, inputOn, pinNumber) => {
+          console.log(
+            'retorno-pin: ',
+            pin,
+            'retorno-inputOff',
+            inputOff,
+            'retorno-inputOn',
+            inputOn,
+            'retorno-pinNumber',
+            pinNumber,
+          );
+
+          addObj(pinNumber, inputOff, inputOn);
         }}
         isVisible={controlModalAdd}
         exitModal={handleCloseModalAdd}

@@ -62,12 +62,14 @@ export function ModalPin({
           </SubTitle>
           <TitleInput>COMANDO A SER ENVIADO {pin}</TitleInput>
           <InputCode
+            text="DESLIGADO"
             value={inputOff}
             type="attention"
             placeholder="Código"
             onChangeText={val => setInputOff(val)}
           />
           <InputCode
+            text="LIGADO"
             value={inputOn}
             type="success"
             placeholder="Código"

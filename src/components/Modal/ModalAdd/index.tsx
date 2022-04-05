@@ -53,6 +53,7 @@ export function ModalAdd({
           </SubTitle>
           <InputCode
             type="normal"
+            keyboardType="decimal-pad"
             text="PINO"
             placeholder="Pino"
             onChangeText={val => setPinNumber(val)}

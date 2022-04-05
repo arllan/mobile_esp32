@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import {normalizePx} from '../../global/styles/mixins';
 import Icon from 'react-native-vector-icons/Ionicons';
 import theme from '../../global/styles/theme';
-import {TouchableOpacityProps} from 'react-native';
+import {TouchableOpacityProps, Platform} from 'react-native';
 
 export const TextToogle = styled.Text`
   color: ${({theme}) => theme.colors.black};
@@ -28,7 +28,7 @@ export const Row = styled.View`
 `;
 
 export const Line = styled.View`
-  width: 90%;
+  width: ${Platform.OS == 'ios' ? 90 : 85}%;
   padding-left: ${normalizePx(5)};
   padding-right: ${normalizePx(10)};
   height: ${normalizePx(50)};
