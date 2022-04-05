@@ -174,7 +174,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.release
+            // signingConfig signingConfigs.release // -> essa linha aqui tem que descomentar para gerar a build de forma local na maquina, e deixar comentada para gerar a build pela plataforma de CI
             // signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
