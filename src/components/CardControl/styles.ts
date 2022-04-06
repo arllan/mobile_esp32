@@ -25,18 +25,20 @@ export const TextOn = styled.Text`
 export const Row = styled.View`
   align-items: center;
   flex-direction: row;
+  /* background-color: red; */
 `;
 
 export const Line = styled.View`
-  width: ${Platform.OS == 'ios' ? 90 : 85}%;
-  padding-left: ${normalizePx(5)};
-  padding-right: ${normalizePx(10)};
-  height: ${normalizePx(50)};
-  background-color: ${({theme}) => theme.colors.shape};
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  flex-direction: row;
-  margin: ${normalizePx(8)};
+  min-width: ${Platform.OS == 'ios' ? 95 : 97}%;
+  max-width: ${Platform.OS == 'ios' ? 95 : 97}%;
+  height: ${normalizePx(50)};
+  background-color: ${({theme}) => theme.colors.shape};
+  margin-top: ${normalizePx(8)};
+  padding-left: ${normalizePx(5)};
+  padding-right: ${normalizePx(5)};
 `;
 
 export const LineVertical = styled.View`
