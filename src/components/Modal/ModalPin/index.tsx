@@ -49,7 +49,7 @@ export function ModalPin({
   useEffect(() => {
     setInputOn(valueOriginal[pin]?.ligado);
     setInputOff(valueOriginal[pin]?.desligado);
-  }, [pin]);
+  }, [pin, valueOriginal]);
 
   return (
     <Container>
@@ -60,7 +60,7 @@ export function ModalPin({
             E preciso selecionar o elemento de texto que vai ser enviado ao
             esp32. Geralmente combinações de até 5 letras.
           </SubTitle>
-          <TitleInput>COMANDO A SER ENVIADO {pin}</TitleInput>
+          <TitleInput>COMANDO A SER ENVIADO</TitleInput>
           <InputCode
             text="DESLIGADO"
             value={inputOff}
