@@ -1,15 +1,10 @@
-import React, {
-  useState,
-  createContext,
-  useContext,
-  ReactChild,
-  ReactChildren,
-  ReactNode,
-} from 'react';
+import React, {useState, createContext, useContext, ReactNode} from 'react';
 
 export type ProviderProps = {
   intro: boolean;
   setIntro: (value: boolean) => void;
+  ipValue: string | any;
+  setIpValue: (value: string) => void;
 };
 
 export type childrenProps = {
@@ -19,6 +14,8 @@ export type childrenProps = {
 export const GlobalContext = createContext<ProviderProps>({
   intro: false,
   setIntro: (value: boolean) => false,
+  ipValue: false,
+  setIpValue: (value: string) => false,
 });
 
 function useProvider(): ProviderProps {
@@ -31,9 +28,9 @@ function useProvider(): ProviderProps {
 
 const Provide = ({children}: childrenProps) => {
   const [intro, setIntro] = useState<boolean>(false);
-
+  const [ipValue, setIpValue] = useState<string>('');
   return (
-    <GlobalContext.Provider value={{intro, setIntro}}>
+    <GlobalContext.Provider value={{intro, setIntro, ipValue, setIpValue}}>
       {children}
     </GlobalContext.Provider>
   );
