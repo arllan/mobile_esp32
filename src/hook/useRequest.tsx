@@ -12,6 +12,7 @@ export function useRequest() {
       return request;
     } catch (error) {
       setError(error);
+      // console.log('Deu problema');
     } finally {
       setStatus(false);
     }

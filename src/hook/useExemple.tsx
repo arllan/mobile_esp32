@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {listInputs} from '../service/data/inputsList';
 import {useAsyncData} from './useAsyncData';
+import {useRequestExemple} from '../hook/useRequestExemple';
 
 interface InputsCard {
   porta: string;
@@ -16,6 +17,7 @@ export function useExemple() {
   const [controlModalAdd, setControlModalAdd] = useState(false);
 
   const {setDataStorage, getDataStorage} = useAsyncData();
+  const {sendRequest, error} = useRequestExemple();
 
   function handleOpen(pin: number) {
     setPinControl(pin);
@@ -24,7 +26,7 @@ export function useExemple() {
 
   function handleClose() {
     setIsPinModel(!isPinModel);
-    console.log('clicado');
+    // console.log('clicado');
   }
 
   function handleCloseModalAdd() {
@@ -32,14 +34,6 @@ export function useExemple() {
   }
 
   function addObj(pinNumber: string, inputOff: any, inputOn: string) {
-    // console.log(
-    //   ' | inputOff: ',
-    //   inputOff,
-    //   ' | inputOn: ',
-    //   inputOn,
-    //   ' | pinNumber:',
-    //   pinNumber,
-    // );
     const newInput = [];
     newInput.push({
       porta: pinNumber ? pinNumber : '#',
@@ -84,13 +78,8 @@ export function useExemple() {
   }
 
   useEffect(() => {
-    // console.log('Inicio---------------Atualizado');
-    // console.log(listInput);
-    // console.log('Numero:', listInput?.length);
-
     async function fun() {
       if (listInput.length !== 0 && listInput.length !== undefined) {
-        // console.log('bubu');
         await setDataStorage('data', listInput);
       }
     }
@@ -98,18 +87,15 @@ export function useExemple() {
 
     async function fun2() {
       const values: any = await getDataStorage('data');
-      // console.log('values: ', values);
     }
 
     fun2();
-    // console.log('Fim---------------Atualizado');
   }, [listInput]);
 
   useEffect(() => {
     async function initialVelues() {
       const values: any = await getDataStorage('data');
       if (values?.length !== 0 && values?.length !== undefined) {
-        // console.log('aqui', values);
         setListInput(values);
       } else {
         await setDataStorage('data', listInputs);
@@ -122,13 +108,15 @@ export function useExemple() {
   }, []);
 
   useEffect(() => {
-    listInput.map(item => {
+    listInput.map(async item => {
       const valueFormatted =
         'porta: ' +
         item.porta +
         ' pino: ' +
         (item.statePin === true ? item.ligado : item.desligado);
-      console.log('ENVIADO:', valueFormatted);
+      await sendRequest(valueFormatted);
+      // console.log('ENVIADO:', valueFormatted);
+      // console.log('Problema: ', error);
     });
   }, [listInput]);
 
