@@ -1,12 +1,14 @@
 import React from 'react';
+import {FlatList} from 'react-native';
 import {Menu} from '../../components/Menu';
 import {CardControl} from '../../components/CardControl';
 import {ModalPin} from '../../components/Modal/ModalPin';
-import {Container, Content, ButtonAdd, TextButton} from './styles';
-import {FlatList} from 'react-native';
 import {randomToString} from '../../helpers/RandomNumber';
 import {ModalAdd} from '../../components/Modal/ModalAdd';
 import {useExemple} from '../../hook/useExemple';
+import {useProvider} from '../../provider/provider';
+import {useDataManipulation} from '../../hook/new/useAsyncStorage';
+import {Container, Content, ButtonAdd, TextButton} from './styles';
 
 export function Exemple() {
   const {
@@ -24,6 +26,8 @@ export function Exemple() {
     setControlModalAdd,
   } = useExemple();
 
+  const {dataList} = useProvider();
+  const {setDataStorage} = useDataManipulation();
   return (
     <Container>
       <Menu navigationRow="exemple" labelmenu="CONTROLE DE PORTAS" />
@@ -32,7 +36,7 @@ export function Exemple() {
           contentContainerStyle={{
             alignItems: 'center',
           }}
-          data={listInput}
+          data={dataList}
           keyExtractor={() => randomToString(0, 1000)}
           renderItem={({item, index}) => (
             <CardControl
@@ -56,14 +60,16 @@ export function Exemple() {
         pin={pinControl}
         valueOriginal={listInput}
       />
+
       <ModalAdd
-        funSave={(pin, inputOff, inputOn, pinNumber) => {
-          addObj(pinNumber, inputOff, inputOn);
-        }}
         isVisible={controlModalAdd}
         exitModal={handleCloseModalAdd}
         pin={pinControl}
+        saveForm={values => {
+          console.log('Retorno do modal: ', values);
+        }}
       />
+
       <ButtonAdd onPress={() => setControlModalAdd(true)}>
         <TextButton>ADICIONAR</TextButton>
       </ButtonAdd>

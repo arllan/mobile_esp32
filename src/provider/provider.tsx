@@ -5,6 +5,8 @@ export type ProviderProps = {
   setIntro: (value: boolean) => void;
   ipValue: string | any;
   setIpValue: (value: string) => void;
+  dataList: any;
+  setDataList: (value: any) => void;
 };
 
 export type childrenProps = {
@@ -16,6 +18,8 @@ export const GlobalContext = createContext<ProviderProps>({
   setIntro: (value: boolean) => false,
   ipValue: false,
   setIpValue: (value: string) => false,
+  dataList: false,
+  setDataList: (value: any) => false,
 });
 
 function useProvider(): ProviderProps {
@@ -29,8 +33,10 @@ function useProvider(): ProviderProps {
 const Provide = ({children}: childrenProps) => {
   const [intro, setIntro] = useState<boolean>(false);
   const [ipValue, setIpValue] = useState<string>('');
+  const [dataList, setDataList] = useState<any>();
   return (
-    <GlobalContext.Provider value={{intro, setIntro, ipValue, setIpValue}}>
+    <GlobalContext.Provider
+      value={{intro, setIntro, ipValue, setIpValue, dataList, setDataList}}>
       {children}
     </GlobalContext.Provider>
   );
