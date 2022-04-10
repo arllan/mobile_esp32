@@ -14,20 +14,12 @@ import {
   TextButtonReturn,
   Icons,
 } from './styles';
-
-interface InputsCard {
-  porta: string;
-  ligado: string;
-  desligado: string;
-  statePin: boolean;
-}
-
 interface IPropsModal {
   isVisible: boolean;
-  pin: number;
+  pin: string;
   valueOriginal: any;
   exitModal: () => void;
-  funEdit: (index: number, desligado: string, ligado: string) => void;
+  funEdit: (index: string, desligado: string, ligado: string) => void;
 }
 
 export function ModalPin({

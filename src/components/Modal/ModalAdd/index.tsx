@@ -1,8 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useForm} from 'react-hook-form';
 import {InputValidate} from '../../inputValidate';
-import {schema} from '../../../helpers/Validations/ModalAdd/ModalAdd';
+import {keyAsyncStorage} from '../../../config/keyAsyncStorage';
+import {ISetDataBase} from '../../../dtos/DataBaseDTO';
+import {SwitchRow} from '../../SwitchRow';
+import {
+  schema,
+  schemaValidate,
+} from '../../../helpers/Validations/ModalAdd/ModalAdd';
 import {
   ModalConatiner,
   Container,
@@ -16,23 +22,17 @@ import {
   TextButtonReturn,
   Icons,
 } from './styles';
-
-interface InputsValues {
-  inputDesligado: string;
-  inputLigado: string;
-  inputPino: string;
-}
 interface IPropsModal {
   isVisible: boolean;
-  pin: number;
+  // pin: number;
   exitModal: () => void;
-  saveForm: (values: InputsValues) => void;
+  saveForm: (values: ISetDataBase) => void;
 }
 
 export function ModalAdd({
   isVisible,
   exitModal,
-  pin,
+  // pin,
   saveForm,
   ...rest
 }: IPropsModal) {
@@ -46,15 +46,27 @@ export function ModalAdd({
     resolver: yupResolver(schema),
   });
 
-  function save(form: InputsValues) {
-    saveForm(form);
+  const [switchControl, setSwitchControl] = useState(false);
+
+  function save(form: schemaValidate) {
+    const data: ISetDataBase = {
+      desligado: form.inputDesligado,
+      key: keyAsyncStorage,
+      ligado: form.inputLigado,
+      porta: form.inputPino,
+      statePin: switchControl,
+    };
+    console.log('Formato do formulario', data);
+    saveForm(data);
+    exitModal();
   }
 
   useEffect(() => {
     // defined values initial
-    setValue('inputPino', '#valor');
-    setValue('inputDesligado', '#valor');
-    setValue('inputLigado', '#valor');
+    setValue('inputPino', '');
+    setValue('inputDesligado', '');
+    setValue('inputLigado', '');
+
     // reset list erros
     clearErrors('inputPino');
     clearErrors('inputDesligado');
@@ -74,7 +86,6 @@ export function ModalAdd({
             label="Pino"
             type="Pin"
             name="inputPino"
-            autoCapitalize="none"
             keyboardType="numeric"
             control={control}
             list={errors}
@@ -85,7 +96,6 @@ export function ModalAdd({
             label="DESLIGADO"
             type="Des"
             name="inputDesligado"
-            autoCapitalize="none"
             keyboardType="numeric"
             control={control}
             list={errors}
@@ -96,13 +106,12 @@ export function ModalAdd({
             label="LIGADO"
             type="Lig"
             name="inputLigado"
-            autoCapitalize="none"
             keyboardType="numeric"
             control={control}
             list={errors}
             error={errors.inputDesligado && errors.inputDesligado.message}
           />
-
+          <SwitchRow changeValue={val => setSwitchControl(val)} />
           <Row>
             <AreaButton onPress={exitModal}>
               <Icons />

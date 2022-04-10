@@ -34,10 +34,10 @@ export function ModalConnect({isVisible, exitModal, ...rest}: IPropsModal) {
     clearErrors,
   } = useAsyncStorage();
 
-  const {setDataStorage} = useDataManipulation();
+  // const {setDataStorage} = useDataManipulation();
 
   useEffect(() => {
-    setDataStorage('TEST', 'value');
+    // setDataStorage('TEST', 'value');
   }, [isVisible]);
 
   // function saveValue(value: any) {

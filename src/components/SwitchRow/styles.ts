@@ -7,7 +7,7 @@ export const Container = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: ${normalizePx(20)};
+  /* margin-top: ${normalizePx(20)}; */
   margin-bottom: ${normalizePx(10)};
 `;
 

@@ -18,6 +18,7 @@ interface Props extends TextInputProps {
   list?: any;
   activityErro?: boolean;
   label?: string;
+  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
 }
 
 export function InputValidate({
@@ -26,6 +27,7 @@ export function InputValidate({
   error,
   list,
   activityErro = true,
+  autoCapitalize = 'none',
   label,
   type,
   ...rest
@@ -40,7 +42,12 @@ export function InputValidate({
           name={name}
           control={control}
           render={({field: {onChange, value}}) => (
-            <Input onChangeText={onChange} value={value} {...rest} />
+            <Input
+              onChangeText={onChange}
+              autoCapitalize={autoCapitalize}
+              value={value}
+              {...rest}
+            />
           )}
         />
       </Container>

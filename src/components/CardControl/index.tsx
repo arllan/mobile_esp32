@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Switch, TouchableOpacityProps} from 'react-native';
 import {
   Row,
@@ -13,37 +13,34 @@ import {
 } from './styles';
 
 interface ICardControlProps extends TouchableOpacityProps {
-  pin: string;
-  value: boolean;
+  pin?: string;
   onPress: () => void;
-  onValueChange: (val: boolean) => void;
+  onChange: (val: boolean) => void;
 }
 
-export function CardControl({
-  pin,
-  value,
-  onValueChange,
-  onPress,
-}: ICardControlProps) {
+export function CardControl({pin, onPress, onChange}: ICardControlProps) {
+  const [switchValue, setSwitchValue] = useState(false);
+
   return (
     <Line>
       <Row>
-        <Button onPress={onPress}>
+        <Button>
           <Icons />
         </Button>
-        <TextToogle>PORTA DIGITAL {pin}</TextToogle>
+        <TextToogle>PORTA DIGITAL {pin} </TextToogle>
       </Row>
       <LineVertical />
       <Row>
         <ContainerText>
-          {value ? <TextOn>LIGADO</TextOn> : <TextOff>DESLIGADO</TextOff>}
+          {switchValue ? <TextOn>LIGADO</TextOn> : <TextOff>DESLIGADO</TextOff>}
         </ContainerText>
         <Switch
-          value={value}
+          value={switchValue}
           trackColor={{false: '#767577', true: '#81b0ff'}}
-          thumbColor={value ? '#1E90FF' : '#f4f3f4'}
+          thumbColor={true ? '#1E90FF' : '#f4f3f4'}
           onValueChange={val => {
-            onValueChange(val);
+            setSwitchValue(val);
+            onChange(val);
           }}
         />
       </Row>
