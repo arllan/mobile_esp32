@@ -1,6 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {InputCode} from '../../Input/InputCode';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {useForm} from 'react-hook-form';
+import {InputValidate} from '../../inputValidate';
+import {keyAsyncStorage} from '../../../config/keyAsyncStorage';
+import {ISetDataBase} from '../../../dtos/DataBaseDTO';
 import {SwitchRow} from '../../SwitchRow';
+import {
+  schema,
+  schemaValidate,
+} from '../../../helpers/Validations/ModalAdd/ModalAdd';
 import {
   ModalConatiner,
   Container,
@@ -16,31 +24,51 @@ import {
 } from './styles';
 interface IPropsModal {
   isVisible: boolean;
-  pin: number;
   exitModal: () => void;
-  funSave: (
-    index: number,
-    desligado: string,
-    ligado: string,
-    pinNum: any,
-  ) => void;
+  saveForm: (values: ISetDataBase) => void;
 }
 
 export function ModalAdd({
   isVisible,
   exitModal,
-  pin,
-  funSave,
+  saveForm,
   ...rest
 }: IPropsModal) {
-  const [inputOn, setInputOn] = useState('');
-  const [inputOff, setInputOff] = useState('');
-  const [pinNumber, setPinNumber] = useState('');
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+    setValue,
+    clearErrors,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  function saveValue() {
-    funSave(pin, inputOff, inputOn, pinNumber);
+  const [switchControl, setSwitchControl] = useState(false);
+
+  function save(form: schemaValidate) {
+    const data: ISetDataBase = {
+      desligado: form.inputDesligado,
+      key: keyAsyncStorage,
+      ligado: form.inputLigado,
+      porta: form.inputPino,
+      statePin: switchControl,
+    };
+    saveForm(data);
     exitModal();
   }
+
+  useEffect(() => {
+    // defined values initial
+    setValue('inputPino', '');
+    setValue('inputDesligado', '');
+    setValue('inputLigado', '');
+
+    // reset list erros
+    clearErrors('inputPino');
+    clearErrors('inputDesligado');
+    clearErrors('inputLigado');
+  }, [isVisible]);
 
   return (
     <Container>
@@ -51,32 +79,42 @@ export function ModalAdd({
             Escolha o pino que vai ser controlado com o comando informado
             abaixo.
           </SubTitle>
-          <InputCode
-            type="normal"
-            keyboardType="decimal-pad"
-            text="PINO"
-            placeholder="Pino"
-            onChangeText={val => setPinNumber(val)}
+          <InputValidate
+            label="Pino"
+            type="Pin"
+            name="inputPino"
+            keyboardType="numeric"
+            control={control}
+            list={errors}
+            error={errors.inputPino && errors.inputPino.message}
           />
-          <InputCode
-            type="attention"
-            text="DESLIGADO"
-            placeholder="Código"
-            onChangeText={val => setInputOff(val)}
+
+          <InputValidate
+            label="DESLIGADO"
+            type="Des"
+            name="inputDesligado"
+            keyboardType="numeric"
+            control={control}
+            list={errors}
+            error={errors.inputDesligado && errors.inputDesligado.message}
           />
-          <InputCode
-            type="success"
-            text="LIGADO"
-            placeholder="Código"
-            onChangeText={val => setInputOn(val)}
+
+          <InputValidate
+            label="LIGADO"
+            type="Lig"
+            name="inputLigado"
+            keyboardType="numeric"
+            control={control}
+            list={errors}
+            error={errors.inputLigado && errors.inputLigado.message}
           />
-          <SwitchRow />
+          <SwitchRow changeValue={val => setSwitchControl(val)} />
           <Row>
             <AreaButton onPress={exitModal}>
               <Icons />
               <TextButtonReturn>Fechar</TextButtonReturn>
             </AreaButton>
-            <Button onPress={saveValue}>
+            <Button onPress={handleSubmit(save)}>
               <TextButton>Salvar</TextButton>
             </Button>
           </Row>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Container,
   ContainerText,
@@ -9,8 +9,18 @@ import {
   TextOn,
 } from './styles';
 
-export function SwitchRow() {
-  const value = false;
+interface IPropsSwitch {
+  changeValue: (val: any) => void;
+}
+
+export function SwitchRow({changeValue}: IPropsSwitch) {
+  const [value, setValue] = useState(false);
+
+  function change(value: boolean) {
+    changeValue(value);
+    setValue(value);
+  }
+
   return (
     <Container>
       <Label>Estado inicial do pino</Label>
@@ -18,7 +28,7 @@ export function SwitchRow() {
       <ContainerText>
         {value ? <TextOn>LIGADO</TextOn> : <TextOff>DESLIGADO</TextOff>}
       </ContainerText>
-      <SwitchControl />
+      <SwitchControl value={value} onValueChange={val => change(val)} />
     </Container>
   );
 }

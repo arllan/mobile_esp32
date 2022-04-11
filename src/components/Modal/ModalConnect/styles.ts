@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Ionicons';
 import theme from '../../../global/styles/theme';
+import {TouchableOpacityProps} from 'react-native';
 
 type PropsButton = {
   type: 'connect' | 'close';
@@ -22,7 +23,7 @@ export const BodyModal = styled.View`
   border-radius: ${normalizePx(10)};
 `;
 
-export const Button = styled.TouchableOpacity.attrs({
+export const Button = styled.TouchableOpacity.attrs<TouchableOpacityProps>({
   activeOpacity: 0.7,
 })`
   width: 48%;
