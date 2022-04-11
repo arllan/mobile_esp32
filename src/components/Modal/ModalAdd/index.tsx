@@ -24,7 +24,6 @@ import {
 } from './styles';
 interface IPropsModal {
   isVisible: boolean;
-  // pin: number;
   exitModal: () => void;
   saveForm: (values: ISetDataBase) => void;
 }
@@ -32,7 +31,6 @@ interface IPropsModal {
 export function ModalAdd({
   isVisible,
   exitModal,
-  // pin,
   saveForm,
   ...rest
 }: IPropsModal) {
@@ -56,7 +54,6 @@ export function ModalAdd({
       porta: form.inputPino,
       statePin: switchControl,
     };
-    console.log('Formato do formulario', data);
     saveForm(data);
     exitModal();
   }
@@ -109,7 +106,7 @@ export function ModalAdd({
             keyboardType="numeric"
             control={control}
             list={errors}
-            error={errors.inputDesligado && errors.inputDesligado.message}
+            error={errors.inputLigado && errors.inputLigado.message}
           />
           <SwitchRow changeValue={val => setSwitchControl(val)} />
           <Row>

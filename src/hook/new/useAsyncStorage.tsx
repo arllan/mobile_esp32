@@ -8,16 +8,24 @@ import {
   IDeletePositionBase,
 } from '../../dtos/DataBaseDTO';
 
-export function useDataManipulation() {
+interface IUseDataManipulation {
+  setDataAllStorage: (key: string, values: ISetDataBase) => void;
+  getDataStorage: (key: IGetDataBase) => void;
+  deleteDataStorage: (key: IDeleteDataBase) => void;
+  updateDataStorage: (data: IUpdateDataBase) => void;
+  deletePositionStorage: (data: IDeletePositionBase) => void;
+}
+
+export function useDataManipulation(): IUseDataManipulation {
   const {setDataList, dataList} = useProvider(); // estado global da aplicação
 
-  async function setDataAllStorage(values: ISetDataBase) {
+  async function setDataAllStorage(key: string, values: ISetDataBase) {
     try {
-      const searchData = await AsyncStorage.getItem(values.key);
+      const searchData = await AsyncStorage.getItem(key);
       const currentData = searchData ? JSON.parse(searchData!) : [];
       const dataFormatted = [...currentData, values];
-      await AsyncStorage.setItem(values.key, JSON.stringify(dataFormatted));
-      const getValues = await getDataStorage(values.key);
+      await AsyncStorage.setItem(key, JSON.stringify(dataFormatted));
+      const getValues = await getDataStorage(key);
       setDataList(getValues);
     } catch (error) {
       console.log(' Erro setDataAllStorage: ', error);
@@ -48,7 +56,6 @@ export function useDataManipulation() {
       const {desligado, index, key, ligado, porta, statePin} = data;
       const search = await getDataStorage(key);
       if (search[index] !== undefined || null) {
-        console.log('Entrou no verdadeiro', search[index]);
         search[data.index] = {
           desligado: desligado,
           key: key,
@@ -58,6 +65,7 @@ export function useDataManipulation() {
         };
         await deleteDataStorage(data.key);
         await AsyncStorage.setItem('chave', JSON.stringify(search));
+        await getDataStorage('chave');
       } else {
         console.log('Não existe nenhum dado ainda');
       }

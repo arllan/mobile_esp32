@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {Switch, TouchableOpacityProps} from 'react-native';
+import {IUpdateDataBase} from '../../dtos/DataBaseDTO';
+import {keyAsyncStorage} from '../../config/keyAsyncStorage';
 import {
   Row,
   Line,
@@ -11,23 +13,41 @@ import {
   Button,
   ContainerText,
 } from './styles';
-
 interface ICardControlProps extends TouchableOpacityProps {
-  pin?: string;
+  object?: any;
+  position: number;
+  onChange: (data: IUpdateDataBase) => void;
   onPress: () => void;
-  onChange: (val: boolean) => void;
 }
 
-export function CardControl({pin, onPress, onChange}: ICardControlProps) {
-  const [switchValue, setSwitchValue] = useState(false);
+export function CardControl({
+  object,
+  onPress,
+  position,
+  onChange,
+}: ICardControlProps) {
+  const [switchValue, setSwitchValue] = useState(object?.statePin);
+
+  async function handleSwitch(value: boolean) {
+    setSwitchValue(value);
+    const data: IUpdateDataBase = {
+      key: keyAsyncStorage,
+      index: position,
+      porta: object.porta,
+      ligado: object.ligado,
+      desligado: object.desligado,
+      statePin: value,
+    };
+    onChange(data);
+  }
 
   return (
     <Line>
       <Row>
-        <Button>
+        <Button onPress={onPress}>
           <Icons />
         </Button>
-        <TextToogle>PORTA DIGITAL {pin} </TextToogle>
+        <TextToogle>PORTA DIGITAL {object?.porta} </TextToogle>
       </Row>
       <LineVertical />
       <Row>
@@ -39,8 +59,7 @@ export function CardControl({pin, onPress, onChange}: ICardControlProps) {
           trackColor={{false: '#767577', true: '#81b0ff'}}
           thumbColor={true ? '#1E90FF' : '#f4f3f4'}
           onValueChange={val => {
-            setSwitchValue(val);
-            onChange(val);
+            handleSwitch(val);
           }}
         />
       </Row>
