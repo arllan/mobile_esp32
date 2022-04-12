@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useProvider} from '../../provider/provider';
+import {keyAsyncStorage} from '../../config/keyAsyncStorage';
 import {
   ISetDataBase,
   IGetDataBase,
@@ -21,6 +22,7 @@ export function useDataManipulation(): IUseDataManipulation {
 
   async function setDataAllStorage(key: string, values: ISetDataBase) {
     try {
+      console.log('SET_DATA_ALL_STORAGE:', values);
       const searchData = await AsyncStorage.getItem(key);
       const currentData = searchData ? JSON.parse(searchData!) : [];
       const dataFormatted = [...currentData, values];
@@ -64,8 +66,8 @@ export function useDataManipulation(): IUseDataManipulation {
           statePin: statePin,
         };
         await deleteDataStorage(data.key);
-        await AsyncStorage.setItem('chave', JSON.stringify(search));
-        await getDataStorage('chave');
+        await AsyncStorage.setItem(keyAsyncStorage, JSON.stringify(search));
+        await getDataStorage(keyAsyncStorage);
       } else {
         console.log('Não existe nenhum dado ainda');
       }
@@ -85,7 +87,10 @@ export function useDataManipulation(): IUseDataManipulation {
         });
         if (valuesFormatted !== undefined || null) {
           await deleteDataStorage(data.key);
-          await AsyncStorage.setItem('chave', JSON.stringify(valuesFormatted));
+          await AsyncStorage.setItem(
+            keyAsyncStorage,
+            JSON.stringify(valuesFormatted),
+          );
         }
       } else {
         console.log('Não existe posicao para busca del');
