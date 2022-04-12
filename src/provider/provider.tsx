@@ -1,15 +1,15 @@
-import React, {
-  useState,
-  createContext,
-  useContext,
-  ReactChild,
-  ReactChildren,
-  ReactNode,
-} from 'react';
+import React, {useState, createContext, useContext, ReactNode} from 'react';
+import {IDatabase} from '../dtos/StateBase';
 
 export type ProviderProps = {
   intro: boolean;
   setIntro: (value: boolean) => void;
+  ipValue: string | any;
+  setIpValue: (value: string) => void;
+  dataList: any;
+  setDataList: (value: any) => void;
+  data: any;
+  setData: (data: any) => void;
 };
 
 export type childrenProps = {
@@ -19,6 +19,12 @@ export type childrenProps = {
 export const GlobalContext = createContext<ProviderProps>({
   intro: false,
   setIntro: (value: boolean) => false,
+  ipValue: false,
+  setIpValue: (value: string) => false,
+  dataList: false,
+  setDataList: (value: any) => false,
+  data: false,
+  setData: (value: any) => false,
 });
 
 function useProvider(): ProviderProps {
@@ -31,9 +37,21 @@ function useProvider(): ProviderProps {
 
 const Provide = ({children}: childrenProps) => {
   const [intro, setIntro] = useState<boolean>(false);
-
+  const [ipValue, setIpValue] = useState<string>('');
+  const [dataList, setDataList] = useState<any>();
+  const [data, setData] = useState<any>();
   return (
-    <GlobalContext.Provider value={{intro, setIntro}}>
+    <GlobalContext.Provider
+      value={{
+        intro,
+        setIntro,
+        ipValue,
+        setIpValue,
+        dataList,
+        setDataList,
+        data,
+        setData,
+      }}>
       {children}
     </GlobalContext.Provider>
   );

@@ -12,6 +12,7 @@ export const Container = styled.View`
 `;
 
 export const Content = styled.View`
+  /* flex: 1; */
   width: 100%;
   margin-top: ${normalizePx(25)};
   justify-content: flex-start;
