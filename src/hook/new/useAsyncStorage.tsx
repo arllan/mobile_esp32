@@ -25,8 +25,7 @@ export function useDataManipulation(): IUseDataManipulation {
       const currentData = searchData ? JSON.parse(searchData!) : [];
       const dataFormatted = [...currentData, values];
       await AsyncStorage.setItem(key, JSON.stringify(dataFormatted));
-      const getValues = await getDataStorage(key);
-      setDataList(getValues);
+      await getDataStorage(key);
     } catch (error) {
       console.log(' Erro setDataAllStorage: ', error);
     }
@@ -54,7 +53,8 @@ export function useDataManipulation(): IUseDataManipulation {
   async function updateDataStorage(data: IUpdateDataBase) {
     try {
       const {desligado, index, key, ligado, porta, statePin} = data;
-      const search = await getDataStorage(key);
+      const val = await AsyncStorage.getItem(key);
+      const search = JSON.parse(val!);
       if (search[index] !== undefined || null) {
         search[data.index] = {
           desligado: desligado,
