@@ -44,7 +44,11 @@ export function ModalAdd({
     resolver: yupResolver(schema),
   });
 
-  const [switchControl, setSwitchControl] = useState(false);
+  const [switchControl, setSwitchControl] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log('toggle funcionando!', switchControl);
+  }, [switchControl]);
 
   function save(form: schemaValidate) {
     const data: ISetDataBase = {
@@ -59,6 +63,9 @@ export function ModalAdd({
   }
 
   useEffect(() => {
+    // define o valor para false toda vez quando abre o modal
+    setSwitchControl(false);
+
     // defined values initial
     setValue('inputPino', '');
     setValue('inputDesligado', '');
@@ -84,6 +91,7 @@ export function ModalAdd({
             type="Pin"
             name="inputPino"
             keyboardType="numeric"
+            maxLength={2}
             control={control}
             list={errors}
             error={errors.inputPino && errors.inputPino.message}
@@ -93,7 +101,7 @@ export function ModalAdd({
             label="DESLIGADO"
             type="Des"
             name="inputDesligado"
-            keyboardType="numeric"
+            keyboardType="name-phone-pad"
             control={control}
             list={errors}
             error={errors.inputDesligado && errors.inputDesligado.message}
@@ -103,7 +111,7 @@ export function ModalAdd({
             label="LIGADO"
             type="Lig"
             name="inputLigado"
-            keyboardType="numeric"
+            keyboardType="name-phone-pad"
             control={control}
             list={errors}
             error={errors.inputLigado && errors.inputLigado.message}

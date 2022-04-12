@@ -1,5 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {InputCode} from '../../Input/InputCode';
+import React, {useEffect} from 'react';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {useForm} from 'react-hook-form';
+import {keyAsyncStorage} from '../../../config/keyAsyncStorage';
+import {useProvider} from '../../../provider/provider';
+import {IUpdateDataBase} from '../../../dtos/DataBaseDTO';
+import {InputValidate} from '../../inputValidate';
+import {
+  schema,
+  schemaValidate,
+} from '../../../helpers/Validations/ModalPin/ModalPin';
+
 import {
   ModalConatiner,
   Container,
@@ -16,32 +26,53 @@ import {
 } from './styles';
 interface IPropsModal {
   isVisible: boolean;
-  pin: string;
-  valueOriginal: any;
+  indexObject: number;
   exitModal: () => void;
-  funEdit: (index: string, desligado: string, ligado: string) => void;
+  funEdit: (data: any) => void;
 }
 
-export function ModalPin({
+export function ModalUpdatePin({
   isVisible,
   exitModal,
-  pin,
+  indexObject,
   funEdit,
-  valueOriginal,
   ...rest
 }: IPropsModal) {
-  const [inputOn, setInputOn] = useState('');
-  const [inputOff, setInputOff] = useState('');
+  const {dataList} = useProvider();
 
-  function saveValue() {
-    funEdit(pin, inputOff, inputOn);
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+    setValue,
+    clearErrors,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  function save(form: schemaValidate) {
+    const data: IUpdateDataBase = {
+      desligado: form.inputDesligado,
+      ligado: form.inputLigado,
+      key: keyAsyncStorage,
+      index: indexObject,
+      porta: dataList[indexObject].porta,
+      statePin: dataList[indexObject].statePin,
+    };
+    funEdit(data);
     exitModal();
   }
 
   useEffect(() => {
-    setInputOn(valueOriginal[pin]?.ligado);
-    setInputOff(valueOriginal[pin]?.desligado);
-  }, [pin, valueOriginal]);
+    if (dataList !== undefined || null) {
+      setValue('inputDesligado', dataList[indexObject]?.desligado);
+      setValue('inputLigado', dataList[indexObject]?.ligado);
+    }
+
+    // reset list erros
+    clearErrors('inputDesligado');
+    clearErrors('inputLigado');
+  }, [isVisible]);
 
   return (
     <Container>
@@ -53,26 +84,32 @@ export function ModalPin({
             esp32. Geralmente combinações de até 5 letras.
           </SubTitle>
           <TitleInput>COMANDO A SER ENVIADO</TitleInput>
-          <InputCode
-            text="DESLIGADO"
-            value={inputOff}
-            type="attention"
-            placeholder="Código"
-            onChangeText={val => setInputOff(val)}
+
+          <InputValidate
+            label="DESLIGADO"
+            type="Des"
+            name="inputDesligado"
+            keyboardType="name-phone-pad"
+            control={control}
+            list={errors}
+            error={errors.inputDesligado && errors.inputDesligado.message}
           />
-          <InputCode
-            text="LIGADO"
-            value={inputOn}
-            type="success"
-            placeholder="Código"
-            onChangeText={val => setInputOn(val)}
+
+          <InputValidate
+            label="LIGADO"
+            type="Lig"
+            name="inputLigado"
+            keyboardType="name-phone-pad"
+            control={control}
+            list={errors}
+            error={errors.inputLigado && errors.inputLigado.message}
           />
           <Row>
             <AreaButton onPress={exitModal}>
               <Icons />
               <TextButtonReturn>Fechar</TextButtonReturn>
             </AreaButton>
-            <Button onPress={saveValue}>
+            <Button onPress={handleSubmit(save)}>
               <TextButton>Salvar</TextButton>
             </Button>
           </Row>

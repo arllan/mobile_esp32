@@ -10,11 +10,11 @@ import {
 } from './styles';
 
 interface IPropsSwitch {
-  changeValue: (val: any) => void;
+  changeValue: (val: boolean) => void;
 }
 
 export function SwitchRow({changeValue}: IPropsSwitch) {
-  const [value, setValue] = useState(false);
+  const [value, setValue] = useState<boolean>(false);
 
   function change(value: boolean) {
     changeValue(value);
