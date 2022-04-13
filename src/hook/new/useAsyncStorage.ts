@@ -10,11 +10,11 @@ import {
 } from '../../dtos/DataBaseDTO';
 
 interface IUseDataManipulation {
-  setDataAllStorage: (key: string, values: ISetDataBase) => void;
-  getDataStorage: (key: IGetDataBase) => void;
-  deleteDataStorage: (key: IDeleteDataBase) => void;
-  updateDataStorage: (data: IUpdateDataBase) => void;
-  deletePositionStorage: (data: IDeletePositionBase) => void;
+  setDataAllStorage: (key: string, values: ISetDataBase) => Promise<any>;
+  getDataStorage: (key: IGetDataBase) => Promise<any>;
+  deleteDataStorage: (key: IDeleteDataBase) => Promise<any>;
+  updateDataStorage: (data: IUpdateDataBase) => Promise<any>;
+  deletePositionStorage: (data: IDeletePositionBase) => Promise<any>;
 }
 
 export function useDataManipulation(): IUseDataManipulation {

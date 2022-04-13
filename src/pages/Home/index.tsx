@@ -3,7 +3,7 @@ import {Menu} from '../../components/Menu';
 import {Container} from './styles';
 import {Input} from '../../components/Input/Input';
 import {List} from '../../components/List';
-import {useFilterHome} from '../../hook/new/useFilterHome';
+import {useFilterHome} from './hook/useFilter';
 
 export function Home() {
   const {data, filterData} = useFilterHome();

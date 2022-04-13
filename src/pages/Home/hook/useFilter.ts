@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {IdataList, dataListObj} from '../../service/data/dataList';
+import {IdataList, dataListObj} from '../../../service/data/dataList';
 
 export function useFilterHome() {
   const [data, setData] = useState<IdataList[]>(dataListObj);

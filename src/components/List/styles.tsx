@@ -33,6 +33,7 @@ export const Text = styled.Text`
   color: ${({theme}) => theme.colors.background};
   font-size: ${normalizePx(18)};
   margin-left: ${normalizePx(10)};
+  text-transform: capitalize;
 `;
 
 export const ContainerButton = styled.TouchableOpacity.attrs({

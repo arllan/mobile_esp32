@@ -14,6 +14,7 @@ export function Input({change, ...rest}: IPropsInput) {
     <Container>
       <InputElement
         {...rest}
+        autoCapitalize="none"
         onChangeText={val => {
           change(val);
         }}
