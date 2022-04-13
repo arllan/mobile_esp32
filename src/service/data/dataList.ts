@@ -1,13 +1,13 @@
 import {screenNames} from './../../routes/screenNames';
 
-export interface dataList {
+export interface IdataList {
   id: number;
   text: string;
   type: 'blue' | 'yellow' | 'orange' | 'green' | 'brown' | 'purple';
   router: string;
 }
 
-export const dataListObj: dataList[] = [
+export const dataListObj: IdataList[] = [
   {
     id: 1,
     text: 'Controle de portas digitais com passagem de parâmetros',

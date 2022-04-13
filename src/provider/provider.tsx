@@ -1,10 +1,9 @@
 import React, {useState, createContext, useContext, ReactNode} from 'react';
-import {IDatabase} from '../dtos/StateBase';
 
 export type ProviderProps = {
   intro: boolean;
   setIntro: (value: boolean) => void;
-  ipValue: string | any;
+  ipValue: string;
   setIpValue: (value: string) => void;
   dataList: any;
   setDataList: (value: any) => void;
@@ -19,7 +18,7 @@ export type childrenProps = {
 export const GlobalContext = createContext<ProviderProps>({
   intro: false,
   setIntro: (value: boolean) => false,
-  ipValue: false,
+  ipValue: '',
   setIpValue: (value: string) => false,
   dataList: false,
   setDataList: (value: any) => false,

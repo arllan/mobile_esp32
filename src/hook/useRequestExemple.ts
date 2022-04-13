@@ -1,11 +1,9 @@
-import {useRequest} from '../hook/useRequest';
-import {useAsyncStorage} from '../hook/useAsyncStorage';
+import {useRequest} from './useRequest';
 import {ToastMessageDescription} from '../helpers/ToastMessage';
 import {useProvider} from '../provider/provider';
 
 export function useRequestExemple() {
   const {error, useRequestGet, status} = useRequest();
-  const {ipConnect} = useAsyncStorage();
   const {ipValue} = useProvider();
 
   async function sendRequest(data: string) {

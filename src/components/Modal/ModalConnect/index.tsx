@@ -1,7 +1,12 @@
 import React, {useEffect} from 'react';
-import {useAsyncStorage} from '../../../hook/useAsyncStorage';
 import {InputForm} from '../../inputForm';
-import {useDataManipulation} from '../../../hook/new/useAsyncStorage';
+import {useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {useAsyncIp} from '../../../hook/new/useAsyncIp';
+import {
+  schema,
+  schemaValidate,
+} from '../../../helpers/Validations/ModalConnect/modalConnect';
 import {
   ModalConatiner,
   Container,
@@ -24,37 +29,30 @@ interface IPropsModal {
 
 export function ModalConnect({isVisible, exitModal, ...rest}: IPropsModal) {
   const {
-    // setDataStorage,
-    ipConnect,
     control,
     handleSubmit,
-    errors,
+    formState: {errors},
     setValue,
-    reset,
     clearErrors,
-  } = useAsyncStorage();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  // const {setDataStorage} = useDataManipulation();
-
-  useEffect(() => {
-    // setDataStorage('TEST', 'value');
-  }, [isVisible]);
-
-  // function saveValue(value: any) {
-  //   setDataStorage('IP', value?.input);
-  //   exitModal();
-  // }
-
-  // function resetModal() {
-  //   setValue('input', ipConnect);
-  //   exitModal();
-  // }
+  const {setIpStore, getIpStore, ipValue} = useAsyncIp();
 
   useEffect(() => {
-    setValue('input', ipConnect);
+    setValue('input', ipValue);
     clearErrors('input');
-    console.log('Passou pelo modal!', isVisible);
-  }, [isVisible]);
+    const request = async () => {
+      await getIpStore();
+    };
+    request();
+  }, [isVisible, ipValue]);
+
+  function save(form: schemaValidate) {
+    setIpStore(form.input);
+    exitModal();
+  }
 
   return (
     <Container>
@@ -79,7 +77,7 @@ export function ModalConnect({isVisible, exitModal, ...rest}: IPropsModal) {
               <Icons />
               <TextButtonReturn>Fechar</TextButtonReturn>
             </AreaButton>
-            <Button>
+            <Button onPress={handleSubmit(save)}>
               <TextButton>Salvar</TextButton>
             </Button>
           </Row>
@@ -88,3 +86,30 @@ export function ModalConnect({isVisible, exitModal, ...rest}: IPropsModal) {
     </Container>
   );
 }
+
+// const {
+//   // setDataStorage,
+//   ipConnect,
+//   control,
+//   handleSubmit,
+//   errors,
+//   setValue,
+//   reset,
+//   clearErrors,
+// } = useAsyncStorage();
+
+// function saveValue(value: any) {
+//   setDataStorage('IP', value?.input);
+//   exitModal();
+// }
+
+// function resetModal() {
+//   setValue('input', ipConnect);
+//   exitModal();
+// }
+
+// useEffect(() => {
+//   setValue('input', ipConnect);
+//   clearErrors('input');
+//   console.log('Passou pelo modal!', isVisible);
+// }, [isVisible]);
