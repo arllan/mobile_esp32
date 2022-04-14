@@ -1,10 +1,10 @@
 import React from 'react';
-import {useSlider} from '../../hook/useSlider';
 import SwiperFlatList from 'react-native-swiper-flatlist';
-import {Card} from '../Card';
-import {Content, ButtonNext, Text, ButtonDone} from './styles';
-import {PlatformNumber} from '../../helpers/PlatformPixel';
 import theme from '../../global/styles/theme';
+import {Card} from '../Card';
+import {useSlider} from '../../hook/useSlider';
+import {PlatformNumber} from '../../helpers/PlatformPixel';
+import {Content, ButtonNext, Text, ButtonDone} from './styles';
 
 export function Slider() {
   const {
