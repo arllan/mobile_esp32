@@ -1,48 +1,27 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {FlatList} from 'react-native';
 import {Menu} from '../../components/Menu';
 import {CardControl} from '../../components/CardControl';
 import {ModalUpdatePin} from '../../components/Modal/ModalPin';
 import {randomToString} from '../../helpers/RandomNumber';
 import {ModalAdd} from '../../components/Modal/ModalAdd';
-import {useProvider} from '../../provider/provider';
-import {useDataManipulation} from '../../hook/new/useAsyncStorage';
 import {Container, Content, ButtonAdd, TextButton} from './styles';
 import {keyAsyncStorage} from '../../config/keyAsyncStorage';
+import {useExemple} from './hook/useExemple';
 
 export function Exemple() {
-  const [isPinModel, setIsPinModel] = useState(false);
-  const [pinControl, setPinControl] = useState<number>(0);
-  const [controlModalAdd, setControlModalAdd] = useState(false);
-
-  function handleOpen(pin: number) {
-    setPinControl(pin);
-    setIsPinModel(!isPinModel);
-  }
-
-  function handleClose() {
-    setIsPinModel(!isPinModel);
-  }
-
-  function handleCloseModalAdd() {
-    setControlModalAdd(false);
-  }
-
   const {
-    setDataAllStorage,
-    getDataStorage,
-    deleteDataStorage,
+    handleOpen,
     updateDataStorage,
-    deletePositionStorage,
-  } = useDataManipulation();
-
-  const {dataList} = useProvider();
-
-  useEffect(() => {
-    if (dataList === undefined) {
-      getDataStorage(keyAsyncStorage);
-    }
-  }, []);
+    handleClose,
+    handleCloseModalAdd,
+    setDataAllStorage,
+    setControlModalAdd,
+    dataList,
+    isPinModel,
+    pinControl,
+    controlModalAdd,
+  } = useExemple();
 
   return (
     <Container>
