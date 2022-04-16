@@ -10,6 +10,15 @@ export const TextToogle = styled.Text`
   font-weight: 500;
 `;
 
+export const AreaText = styled.View`
+  flex-direction: row;
+`;
+
+export const AreaPin = styled.View`
+  width: ${normalizePx(20)};
+  flex-direction: row;
+`;
+
 export const TextOff = styled.Text`
   color: ${({theme}) => theme.colors.backgroundPrimary};
   font-size: ${normalizePx(13)};

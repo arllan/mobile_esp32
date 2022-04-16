@@ -12,6 +12,8 @@ import {
   TextOn,
   Button,
   ContainerText,
+  AreaText,
+  AreaPin,
 } from './styles';
 interface ICardControlProps extends TouchableOpacityProps {
   object?: any;
@@ -47,7 +49,12 @@ export function CardControl({
         <Button onPress={onPress}>
           <Icons />
         </Button>
-        <TextToogle>PORTA DIGITAL {object?.porta} </TextToogle>
+        <AreaText>
+          <TextToogle>PORTA DIGITAL </TextToogle>
+          <AreaPin>
+            <TextToogle>{object?.porta} </TextToogle>
+          </AreaPin>
+        </AreaText>
       </Row>
       <LineVertical />
       <Row>

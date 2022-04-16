@@ -10,11 +10,11 @@ import {
 } from '../../dtos/DataBaseDTO';
 
 interface IUseDataManipulation {
-  setDataAllStorage: (key: string, values: ISetDataBase) => void;
-  getDataStorage: (key: IGetDataBase) => void;
-  deleteDataStorage: (key: IDeleteDataBase) => void;
-  updateDataStorage: (data: IUpdateDataBase) => void;
-  deletePositionStorage: (data: IDeletePositionBase) => void;
+  setDataAllStorage: (key: string, values: ISetDataBase) => Promise<any>;
+  getDataStorage: (key: IGetDataBase) => Promise<any>;
+  deleteDataStorage: (key: IDeleteDataBase) => Promise<any>;
+  updateDataStorage: (data: IUpdateDataBase) => Promise<any>;
+  deletePositionStorage: (data: IDeletePositionBase) => Promise<any>;
 }
 
 export function useDataManipulation(): IUseDataManipulation {
@@ -108,62 +108,3 @@ export function useDataManipulation(): IUseDataManipulation {
     deletePositionStorage,
   };
 }
-
-/*
-  # ADICIONAR UM DADO NOVO 
-    - Buscar todos os dados - 01
-    - Adicionar um novo elemento na ultima posição
-    - deletar os registros antigos - 02
-    - Salvar os novos dados - 03
-    - Atualizar dados no state do context  (DEIXAR GLOBAL) - 04
-
-  # DELETAR UM DADO
-    - Buscar todos os dados - 01
-    - Retirar apenas o dado especifico
-    - deletar os registros antigos - 02
-    - Salvar os novos dados - 03
-    - Atualizar dados no state do context  (DEIXAR GLOBAL) - 04
-
-  # ATUALIZAR UM DADO
-    - Buscar todos os dados - 01
-    - Atualiza apenas o dado especifico  
-    - deletar os registros antigos - 02
-    - Salvar os novos dados - 03
-    - Atualizar dados no state do context  (DEIXAR GLOBAL) - 04
-*/
-
-/*
-key: string,
-    porta: string,
-    ligado: string,
-    desligado: string,
-    statePin: boolean = false,
-*/
-
-// async function setDataStorage(key: string, value: any) {
-//   AsyncStorage.setItem(key, value)
-//     .then(response => {
-//       console.log('setDataList', response);
-//     })
-//     .catch(error => {
-//       console.log('Deu ERROO!!', error);
-//     });
-// }
-
-// async function setData(key: string, value: any) {
-//   AsyncStorage.setItem(key, value)
-//     .then(response => {
-//       console.log('setDataList', response);
-//     })
-//     .catch(error => {
-//       console.log('Deu ERROO!!', error);
-//     });
-// }
-
-/*
-// search[data.index].key = key;
-        // search[data.index].desligado = desligado;
-        // search[data.index].ligado = ligado;
-        // search[data.index].porta = porta;
-        // search[data.index].statePin = statePin;
-*/
