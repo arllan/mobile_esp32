@@ -7,6 +7,20 @@ O projeto tem a finalidade de conectar react native com o [esp32](https://pt.wik
 
 ![App Screenshot](/to_readme/titulo.gif)
 
+# Estrutura de arquivos.
+
+Dentro projeto vamos encontrar o código fonte do app e também podemos encontrar o código fonte onde vamos programar o esp32.
+
+- Pasta `arduino` temos alguns códigos fonte do projeto para copilar para o esp32.
+- Pasta `src` onde fica o código fonte do app.
+
+# Funcionalidades.
+- Conectar a multiplas placas.
+- Guia inicial do app.
+- Menu de gerenciamento de conexão -> cadastrar, deletar, selecionar placa.
+- Enviar valores dinamicos para placa.
+
+
 
 # Stack e Bibliotecas.
 - React Native
@@ -24,12 +38,8 @@ O projeto tem a finalidade de conectar react native com o [esp32](https://pt.wik
 - react-native-vector-icons
 - yup
 
-
-# Funcionalidades.
-- Conectar a multiplas placas.
-- Guia inicial do app.
-- Menu de gerenciamento de conexão -> cadastrar, deletar, selecionar placa.
-- Enviar valores dinamicos para placa.
+# Processos de CI/CD
+- App center
 
 
 # Executando projeto.
